@@ -1,0 +1,15 @@
+on: pull_request
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: "OTP-27.3"
+          elixir-version: "1.18.4"
+      - run: mix deps.get
+      - run: mix deps.compile
+      - run: mix compile
+      - run: mix test
